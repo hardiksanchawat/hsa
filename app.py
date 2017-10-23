@@ -29,7 +29,7 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "DiseaseDetails":
+    if req.get("result").get("action") != "AHemophiliaHemophilia":
         return {}
     result = req.get("result")
     # For a Boto3 client.
