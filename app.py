@@ -32,6 +32,8 @@ def makeWebhookResult(req):
     if req.get("result").get("action") != "AHemophiliaHemophilia":
         return {}
     result = req.get("result")
+	parameters = result.get("parameters")
+    zone = parameters.get("Disease_Name")
     # For a Boto3 client.
 	ddb = boto3.client('dynamodb', aws_access_key_id='AKIAJKDZSPOYZ3A5KIHQ', aws_secret_access_key='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', region_name='us-east-2')
 	response = ddb.list_tables()
@@ -41,12 +43,11 @@ def makeWebhookResult(req):
 
     table = dynamodb.Table('medical_qa_details')
     response = table.scan(
-        FilterExpression=Attr('questions').eq(result)
+        FilterExpression=Attr('questions').eq(result) & Attr('disease_name').eq(zone)
     )
     speech=response['Items'][0]['answers']
     print("Response:")
     print(speech)
-
     return {
         "speech": speech,
         "displayText": speech,
