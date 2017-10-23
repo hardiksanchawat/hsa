@@ -36,11 +36,11 @@ def makeWebhookResult(req):
     # parameters = result.get("parameters")
     # zone = parameters.get("qt")
     # For a Boto3 client.
-    ddb = boto3.client('dynamodb', aws_access_key_id='AKIAJKDZSPOYZ3A5KIHQ', aws_secret_access_key='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', region_name='us-east-2')
+    ddb = boto3.client('dynamodb', aws_access_key_id='AKIAJ7DUJKCSBGJZHUCQ', aws_secret_access_key='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', region_name='us-east-2')
     response = ddb.list_tables()
 
     # For a Boto3 service resource
-    dynamodb = boto3.resource('dynamodb', aws_access_key_id='AKIAJKDZSPOYZ3A5KIHQ', aws_secret_access_key='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', region_name='us-east-2')
+    dynamodb = boto3.resource('dynamodb', aws_access_key_id='AKIAJ7DUJKCSBGJZHUCQ', aws_secret_access_key='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', region_name='us-east-2')
 
     table = dynamodb.Table('medical_qa_details')
     response = table.scan(
