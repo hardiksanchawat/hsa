@@ -45,7 +45,7 @@ def makeWebhookResult(req):
     response = table.scan(
         FilterExpression=Attr('questions').eq(result) & Attr('disease_name').eq(zone)
     )
-    speech=response['Items'][0]['answers']
+    speech = "response is" + response['Items'][0]['answers']
     print("Response:")
     print(speech)
     return {
