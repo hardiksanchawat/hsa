@@ -44,8 +44,9 @@ def makeWebhookResult(req):
     table = dynamodb.Table('medical_qa_details')
     response = table.scan(
         FilterExpression=Attr('questions').eq(zone)
-		
-    speech=response['Items'][0]['answers']
+    )
+	re = response['Items'][0]['answers']
+    speech = "answer of the question" + zone + "is" + str(re)
     print("Response:")
     print(speech)
     return {
