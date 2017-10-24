@@ -32,6 +32,8 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
+    print ("I am in")
+    print('m in>>',req)
     if req.get("result").get("action") != "AHemophiliaHemophilia":
         return {}
     result = req.get("result")
