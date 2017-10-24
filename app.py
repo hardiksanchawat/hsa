@@ -18,9 +18,11 @@ def webhook():
     req = request.get_json(silent=True, force=True)
     print ("r>>",req)
     print("Request:")
+    # req="What have hemophilia?"
     print(json.dumps(req, indent=4))
 
     res = makeWebhookResult(req)
+    print ("ffff>>>",res)
 
     res = json.dumps(res, indent=4)
     print(res)
@@ -34,8 +36,8 @@ def makeWebhookResult(req):
         return {}
     result = req.get("result")
     print ("result>>>",result)
-    # parameters = result.get("parameters")
-    # zone = parameters.get("qt")
+    parameters = result.get("parameters")
+    zone = parameters.get("qt")
     # For a Boto3 client.
     ddb = boto3.client('dynamodb', aws_access_key_id='AKIAJ7DUJKCSBGJZHUCQ', aws_secret_access_key='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', region_name='us-east-2')
     response = ddb.list_tables()
@@ -45,7 +47,7 @@ def makeWebhookResult(req):
 
     table = dynamodb.Table('medical_qa_details')
     response = table.scan(
-        FilterExpression=Attr('questions').eq(result))
+        FilterExpression=Attr('questions').eq(zone))
 
     speech = response['Items'][0]['answers']
     print("Response:")
@@ -55,7 +57,7 @@ def makeWebhookResult(req):
         "displayText": speech,
         #"data": {},
         # "contextOut": [],
-        "source": "MedicalDisease"
+        "source": "medical"
     }
 
 if __name__ == '__main__':
