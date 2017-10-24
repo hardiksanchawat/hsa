@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-
+    print ("r>>",req)
     print("Request:")
     print(json.dumps(req, indent=4))
 
@@ -32,7 +32,8 @@ def makeWebhookResult(req):
     if req.get("result").get("action") != "AHemophiliaHemophilia":
         return {}
     result = req.get("result")
-    print("resultt>>>",result)
+    if result is None:
+        return None
     # parameters = result.get("parameters")
     # zone = parameters.get("qt")
     # For a Boto3 client.
@@ -45,6 +46,7 @@ def makeWebhookResult(req):
     table = dynamodb.Table('medical_qa_details')
     response = table.scan(
         FilterExpression=Attr('questions').eq(result))
+
     speech = response['Items'][0]['answers']
     print("Response:")
     print(speech)
