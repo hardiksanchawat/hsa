@@ -13,7 +13,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('https://hsabot86.herokuapp.com/webhook')
+@app.route('/webhook')
 def webhook():
     req = request.get_json(silent=True, force=True)
     print ("r>>",req)
