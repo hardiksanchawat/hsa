@@ -26,14 +26,14 @@ def webhook():
     print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
+    print ("rt>>>",r)
     return r
 
 def makeWebhookResult(req):
     if req.get("result").get("action") != "AHemophiliaHemophilia":
         return {}
     result = req.get("result")
-    if result is None:
-        return None
+    print ("result>>>",result)
     # parameters = result.get("parameters")
     # zone = parameters.get("qt")
     # For a Boto3 client.
@@ -60,7 +60,8 @@ def makeWebhookResult(req):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
-
-    print "Starting app on port %d" % port
-    app.run(debug=True, port=port, host='0.0.0.0')
+    app.run()
+    # port = int(os.getenv('PORT', 5000))
+    #
+    # print "Starting app on port %d" % port
+    # app.run(debug=True, port=port, host='0.0.0.0')
